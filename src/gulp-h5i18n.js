@@ -75,4 +75,4 @@ module.exports = function (options) {
     }
     return callback(null, file);
   });
-}
+};
