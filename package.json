@@ -1,0 +1,39 @@
+{
+  "name": "gulp-h5i18n",
+  "version": "0.0.2",
+  "description": "A mobile page of internationalization development framework",
+  "main": "lib/gulp-h5i18n.js",
+  "scripts": {
+    "test": "istanbul cover --hook-run-in-context node_modules/mocha/bin/_mocha -- -R spec",
+    "lint": "jshint src/*.js",
+    "dist": "jdists src/gulp-h5i18n.js -o lib/gulp-h5i18n.js && npm run test",
+    "mocha": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zswang/gulp-h5i18n.git"
+  },
+  "keywords": [
+    "i18n"
+  ],
+  "author": "zswang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zswang/gulp-h5i18n/issues"
+  },
+  "homepage": "https://github.com/zswang/gulp-h5i18n#readme",
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "jshint": "^2.9.4",
+    "mocha": "^3.3.0",
+    "should": "^11.2.1"
+  },
+  "dependencies": {
+    "gulp-util": "^3.0.8",
+    "h5i18n": "^0.2.2",
+    "through2": "^2.0.3"
+  },
+  "files": [
+    "lib"
+  ]
+}
