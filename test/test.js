@@ -54,6 +54,17 @@ describe('fixtures', function () {
     }, input, output, done);
   });
 
+  it('case map 2', function (done) {
+    var input = 'console.log(languages.get("click<!--{*}-->"))';
+    var output = 'console.log("クリック")';
+    expect_equals({
+      lang: 'jp',
+      map: {
+        click: '<!--{jp}クリック-->'
+      }
+    }, input, output, done);
+  });
+
   it('case mapfile', function (done) {
     var input = 'console.log(languages.get("双击<!--{*}dblclick-->"))';
     var output = 'console.log("Двойной щелчок")';
