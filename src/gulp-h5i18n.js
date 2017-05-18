@@ -68,7 +68,7 @@ module.exports = function (options) {
 
       var contents = h5i18n_compiler.Compiler.replace(file.contents, {
         defaultLang: options.defaultLang,
-        lang: options.lang,
+        locale: options.locale,
         map: map,
       });
       file.contents = new Buffer(contents);

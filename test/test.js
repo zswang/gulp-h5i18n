@@ -39,7 +39,7 @@ describe('fixtures', function () {
     var input = 'console.log(languages.get("中文<!--{en}English-->"))';
     var output = 'console.log("English")';
     expect_equals({
-      lang: 'en'
+      locale: 'en'
     }, input, output, done);
   });
 
@@ -47,7 +47,7 @@ describe('fixtures', function () {
     var input = 'console.log(languages.get("点击<!--{*}click-->"))';
     var output = 'console.log("クリック")';
     expect_equals({
-      lang: 'jp',
+      locale: 'jp',
       map: {
         click: '<!--{jp}クリック-->'
       }
@@ -58,7 +58,7 @@ describe('fixtures', function () {
     var input = 'console.log(languages.get("click<!--{*}-->"))';
     var output = 'console.log("クリック")';
     expect_equals({
-      lang: 'jp',
+      locale: 'jp',
       map: {
         click: '<!--{jp}クリック-->'
       }
@@ -69,7 +69,7 @@ describe('fixtures', function () {
     var input = 'console.log(languages.get("双击<!--{*}dblclick-->"))';
     var output = 'console.log("Двойной щелчок")';
     expect_equals({
-      lang: 'ru',
+      locale: 'ru',
       mapfile: './test/map.json'
     }, input, output, done);
   });

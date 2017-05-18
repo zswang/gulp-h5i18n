@@ -29,7 +29,7 @@ gulp.task('dist', function() {
 
   Set default language.
 
-- `lang`
+- `locale`
 
   Set current Language.
 

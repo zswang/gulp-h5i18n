@@ -1,6 +1,6 @@
 {
   "name": "gulp-h5i18n",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A mobile page of internationalization development framework",
   "main": "lib/gulp-h5i18n.js",
   "scripts": {
@@ -16,7 +16,10 @@
   "keywords": [
     "i18n"
   ],
-  "author": "zswang",
+  "author": {
+    "name": "zswang",
+    "url": "http://weibo.com/zswang"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zswang/gulp-h5i18n/issues"
@@ -30,7 +33,7 @@
   },
   "dependencies": {
     "gulp-util": "^3.0.8",
-    "h5i18n": "^0.3.5",
+    "h5i18n": "^0.5.0",
     "through2": "^2.0.3"
   },
   "files": [
