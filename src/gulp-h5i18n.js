@@ -22,7 +22,7 @@
 'use strict';
 /*</remove>*/
 
-var h5i18n_compiler = require('h5i18n/lib/compiler');
+var h5i18n = require('h5i18n');
 var through = require('through2');
 var gutil = require('gulp-util');
 var PluginError = require('gulp-util/lib/PluginError');
@@ -59,18 +59,16 @@ module.exports = function (options) {
     }
 
     if (file.isBuffer()) {
+      var langs = new h5i18n.Languages(options.defaultLang);
       var map;
       if (options.map) {
         map = options.map;
       } else if (options.mapfile) {
         map = JSON.parse(fs.readFileSync(options.mapfile));
       }
+      langs.dictionary(map);
 
-      var contents = h5i18n_compiler.Compiler.replace(file.contents, {
-        defaultLang: options.defaultLang,
-        locale: options.locale,
-        map: map,
-      });
+      var contents = langs.replace(file.contents, options.locale);
       file.contents = new Buffer(contents);
     }
     return callback(null, file);
