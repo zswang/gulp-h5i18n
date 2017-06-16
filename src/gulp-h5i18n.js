@@ -76,7 +76,7 @@ module.exports = function (options) {
           /* istanbul ignore else */
           if (expr) {
             var line = '  - type: ' + type + '\n';
-            line += '    lang:\n'
+            line += '    lang:\n';
             Object.keys(expr.optionsLang).forEach(function (lang) {
               var text = expr.optionsLang[lang].trim();
               if (/["\n]/.test(text)) {
