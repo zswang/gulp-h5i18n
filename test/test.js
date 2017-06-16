@@ -108,6 +108,14 @@ describe('extract', function () {
     }, input, output, done);
   });
 
+  it('case 4', function (done) {
+    var input = 'console.log(languages.get("中文:<!--{en}English-->"))';
+    var output = '-file: ../testfile.js\n  i18n:\n  - type: code\n    lang:\n      en: English\n      cn: "中文:"\n';
+    expect_equals({
+      locale: 'en',
+      extract: true,
+    }, input, output, done);
+  });
 });
 
 describe('null', function () {
