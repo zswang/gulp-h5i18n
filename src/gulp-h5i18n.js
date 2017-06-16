@@ -71,7 +71,13 @@ module.exports = function (options) {
       var contents = '';
       if (options.extract) {
         var lines = [];
+        var duplicate = {}; // 排除重复
         langs.replace(file.contents, options.locale, function (type, text) {
+          if (duplicate[text]) {
+            return;
+          }
+          duplicate[text] = true;
+
           var expr = langs.parse(text, 'cn');
           /* istanbul ignore else */
           if (expr) {
@@ -98,7 +104,7 @@ module.exports = function (options) {
           } else {
             filename = file.relative;
           }
-          contents = '-file: ' + filename + '\n  i18n:\n' + lines.join('');
+          contents = '- file: ' + filename + '\n  i18n:\n' + lines.join('');
         }
       } else {
         contents = langs.replace(file.contents, options.locale);

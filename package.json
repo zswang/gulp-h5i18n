@@ -1,12 +1,12 @@
 {
   "name": "gulp-h5i18n",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A mobile page of internationalization development framework",
   "main": "lib/gulp-h5i18n.js",
   "scripts": {
     "test": "istanbul cover --hook-run-in-context node_modules/mocha/bin/_mocha -- -R spec",
     "lint": "jshint src/*.js",
-    "dist": "jdists src/gulp-h5i18n.js -o lib/gulp-h5i18n.js && npm run test",
+    "dist": "jdists src/gulp-h5i18n.js -o lib/gulp-h5i18n.js && npm run test && npm run lint",
     "mocha": "mocha"
   },
   "repository": {
