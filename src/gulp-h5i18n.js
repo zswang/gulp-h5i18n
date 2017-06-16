@@ -68,7 +68,41 @@ module.exports = function (options) {
       }
       langs.dictionary(map);
 
-      var contents = langs.replace(file.contents, options.locale);
+      var contents = '';
+      if (options.extract) {
+        var lines = [];
+        langs.replace(file.contents, options.locale, function (type, text) {
+          var expr = langs.parse(text, 'cn');
+          /* istanbul ignore else */
+          if (expr) {
+            var line = '  - type: ' + type + '\n';
+            line += '    lang:\n'
+            Object.keys(expr.optionsLang).forEach(function (lang) {
+              var text = expr.optionsLang[lang].trim();
+              if (/["\n]/.test(text)) {
+                text = JSON.stringify(text);
+              }
+              if (/[*\n]/.test(lang)) {
+                lang = JSON.stringify(lang);
+              }
+              line += '      ' + lang + ': ' + text + '\n';
+            });
+            lines.push(line);
+          }
+        });
+        if (lines.length) {
+          var filename;
+          /* istanbul ignore else */
+          if (process.env.PWD) {
+            filename = path.relative(process.env.PWD, file.path);
+          } else {
+            filename = file.relative;
+          }
+          contents = '-file: ' + filename + '\n  i18n:\n' + lines.join('');
+        }
+      } else {
+        contents = langs.replace(file.contents, options.locale);
+      }
       file.contents = new Buffer(contents);
     }
     return callback(null, file);

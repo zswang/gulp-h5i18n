@@ -76,6 +76,40 @@ describe('fixtures', function () {
 
 });
 
+describe('extract', function () {
+  it('case 1', function (done) {
+    var input = 'console.log(languages.get("中文<!--{*}100--><!--{en}English-->"))';
+    var output = '-file: testfile.js\n  i18n:\n  - type: code\n    lang:\n      "*": 100\n      en: English\n      cn: 中文\n';
+    expect_equals({
+      locale: 'en',
+      extract: true,
+    }, input, output, done);
+  });
+
+  it('case 2', function (done) {
+    var input = '<div>中文"<!--{en}English--></div>';
+    var output = '-file: ../testfile.js\n  i18n:\n  - type: element\n    lang:\n      en: English\n      cn: \"中文\\\"\"\n';
+    process.env.PWD = null;
+    expect_equals({
+      locale: 'jp',
+      extract: true,
+      map: {
+        click: '<!--{jp}クリック-->'
+      }
+    }, input, output, done);
+  });
+
+  it('case 3', function (done) {
+    var input = '<div></div>';
+    var output = '';
+    expect_equals({
+      locale: 'jp',
+      extract: true,
+    }, input, output, done);
+  });
+
+});
+
 describe('null', function () {
   it('does nothing', function (done) {
     var file = new gutil.File({
