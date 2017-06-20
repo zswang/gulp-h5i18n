@@ -73,22 +73,22 @@ module.exports = function (options) {
         var lines = [];
         var duplicate = {}; // 排除重复
         langs.replace(file.contents, options.locale, function (type, text) {
-          if (duplicate[text]) {
-            return;
-          }
-          duplicate[text] = true;
-
           var expr = langs.parse(text, 'cn');
           /* istanbul ignore else */
           if (expr) {
-            var line = '  - type: ' + type + '\n';
-            line += '    lang:\n';
+            var origin = langs.build(langs.locale, expr, true);
+            if (duplicate[origin]) {
+              return;
+            }
+            duplicate[origin] = true;
+
+            var line = '  - lang:\n';
             Object.keys(expr.optionsLang).forEach(function (lang) {
               var text = expr.optionsLang[lang].trim();
-              if (/["\n:]/.test(text)) {
+              if (/["\n{}\[\]:]/.test(text)) {
                 text = JSON.stringify(text);
               }
-              if (/["*\n:]/.test(lang)) {
+              if (/["\n{}\[\]:*]/.test(lang)) {
                 lang = JSON.stringify(lang);
               }
               line += '      ' + lang + ': ' + text + '\n';
@@ -98,8 +98,10 @@ module.exports = function (options) {
         });
         if (lines.length) {
           var filename;
-          /* istanbul ignore else */
-          if (process.env.PWD) {
+          if (options.extractDir) {
+            filename = path.relative(options.extractDir, file.path);
+            /* istanbul ignore else */
+          } else if (process.env.PWD) {
             filename = path.relative(process.env.PWD, file.path);
           } else {
             filename = file.relative;
